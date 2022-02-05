@@ -12,4 +12,7 @@ docker build .
   - Hands-On Full-Stack Development with Go
   - https://github.com/gin-gonic/gin
 
-<img source="./ref/attatch-vscode.png"></img>
+<img src="https://github.com/deagwon97/go-gin-crud/blob/main/ref/attatch-vscode.png"></img>
+
+[!attatch-vscode](https://github.com/deagwon97/go-gin-crud/blob/main/ref/attatch-vscode.png)
+
