@@ -8,13 +8,13 @@ docker-compose up
 ```
 ### 2. attatch vscode
 <div style="text-align:center;"> 
-    <img src="ref/attatch-vscode.png" style="width:70%;" />
+    <img src="ref/attatch-vscode.png" style="width:70%;"></img>
 </div>
 
 ### 3. run main.go on debug
 
 <div style="text-align:center;"> 
-    <img src="ref/run-debug.png" style="width:70%;" />
+    <img src="ref/run-debug.png" style="width:70%;"></img>
 </div>
 
 ## Build app image
