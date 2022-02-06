@@ -6,7 +6,8 @@ services:
       context: ../
       dockerfile: ./dev/DevDockerfile  
     volumes:
-      - ./src:/root/src
+      - ../src:/root/src
+      - ../dev/.vscode:/root/.vscode
     env_file:
       - ../.env
     ports:
