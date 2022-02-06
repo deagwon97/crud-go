@@ -6,8 +6,7 @@ services:
       context: ../
       dockerfile: ./dev/DevDockerfile  
     volumes:
-      - ../src:/root/src
-      - ../dev/.air.toml:/root/.air.toml
+      - ./src:/root/src
     env_file:
       - ../.env
     ports:

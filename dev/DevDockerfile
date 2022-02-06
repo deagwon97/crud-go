@@ -8,7 +8,7 @@ WORKDIR /root
 
 COPY ./src /root/src
 
-COPY ./.vscode /root/.vscode
+COPY ./dev/.vscode /root/.vscode
 
 # for go debuger
 RUN go get -v github.com/ramya-rao-a/go-outline@latest
