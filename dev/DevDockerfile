@@ -11,8 +11,8 @@ COPY ./src /root/src
 COPY ./.vscode /root/.vscode
 
 # for go debuger
-RUN go install -v github.com/ramya-rao-a/go-outline@latest
-RUN go install -v golang.org/x/tools/gopls@latest
-RUN go install -v github.com/go-delve/delve/cmd/dlv@latest
+RUN go get -v github.com/ramya-rao-a/go-outline@latest
+RUN go get -v golang.org/x/tools/gopls@latest
+RUN go get -v github.com/go-delve/delve/cmd/dlv@latest
 
 RUN cd ./src && go mod download

@@ -1,18 +1,30 @@
 # basic crud api on golang gin framework
 
 ## Development
+
+### 1. docker-compose up
 ```shell
 docker-compose up
 ```
+### 2. attatch vscode
+<div style="text-align:center;"> 
+    <img src="ref/attatch-vscode.png" style="width:70%;" />
+</div>
+
+### 3. run main.go on debug
+
+<div style="text-align:center;"> 
+    <img src="ref/run-debug.png" style="width:70%;" />
+</div>
+
 ## Build app image
+
 ```
 docker build .
 ```
+
 ## reference
   - Hands-On Full-Stack Development with Go
   - https://github.com/gin-gonic/gin
 
-<img src="https://github.com/deagwon97/go-gin-crud/blob/main/ref/attatch-vscode.png"></img>
-
-[!attatch-vscode](https://github.com/deagwon97/go-gin-crud/blob/main/ref/attatch-vscode.png)
 
