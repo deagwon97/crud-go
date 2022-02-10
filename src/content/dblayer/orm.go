@@ -2,13 +2,14 @@ package dblayer
 
 import (
 	"database/sql"
+	"strconv"
 
 	"go-api/content/models"
 
+	"time"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-
-	"time"
 )
 
 type DBORM struct {
@@ -30,44 +31,102 @@ func NewORM(dbengine string, dsn string) (*DBORM, error) {
 
 func Paginate(page int, pageSize int) func(db *gorm.DB) *gorm.DB {
 	return func(db *gorm.DB) *gorm.DB {
-
-		if page == 0 {
-			page = 1
-		}
-		switch {
-		case pageSize > 100:
-			pageSize = 100
-		case pageSize <= 0:
-			pageSize = 10
-		}
-
 		offset := (page - 1) * pageSize
 		return db.Offset(offset).Limit(pageSize)
 	}
 }
 
-func (db *DBORM) GetAllContents(page int, pageSize int) (contents []models.Content, err error) {
-	return contents, db.Scopes(Paginate(page, pageSize)).Find(&contents).Error
+func GetPageInfo(
+	page int, pageSize int, hostUrl string, count int64) (
+	int, int, string, string) {
+
+	if page == 0 {
+		page = 1
+	}
+	switch {
+	case pageSize > 100:
+		pageSize = 100
+	case pageSize <= 0:
+		pageSize = 10
+	}
+
+	var currentCount int64
+	currentCount = int64((page) * pageSize)
+	var nextPage string
+	if count <= currentCount {
+		nextPage = ""
+	} else {
+		nextPage = hostUrl +
+			"?page=" +
+			strconv.Itoa(page+1) +
+			"pageSize=" +
+			strconv.Itoa(pageSize)
+	}
+	var previousPage string
+	if page == 1 {
+		previousPage = ""
+	} else {
+		previousPage = hostUrl +
+			"?page=" +
+			strconv.Itoa(page-1) +
+			"pageSize=" +
+			strconv.Itoa(pageSize)
+	}
+	return page, pageSize, nextPage, previousPage
+}
+
+func (db *DBORM) GetAllContents(
+	page int, pageSize int, hostUrl string) (
+	contents models.ContentList, err error) {
+	var count int64
+	db.Model(&models.ContentItem{}).Count(&count)
+
+	page, pageSize, nextPage, previousPage := GetPageInfo(page, pageSize, hostUrl, count)
+	contents.Count = int(count)
+	contents.NextPage = nextPage
+	contents.PreviousPage = previousPage
+
+	err = db.
+		Select("content_id", "title", "summary").
+		Order("content_id desc").
+		Scopes(Paginate(page, pageSize)).
+		Find(&contents.Results).
+		Error
+
+	return contents, err
 }
 
 func (db *DBORM) GetContent(id int) (content models.Content, err error) {
 	return content, db.First(&content, id).Error
 }
 
-func (db *DBORM) AddContent(content models.Content) (models.Content, error) {
-	return content, db.Create(&content).Error
-}
-
-func (db *DBORM) UpdateContent(id int, content models.Content) (models.Content, error) {
+func (db *DBORM) AddContent(contentData models.ContentData) (content models.Content, err error) {
+	content.User = 2
 	loc, _ := time.LoadLocation("Asia/Seoul")
 	kst := time.Now().In(loc)
-	content.UpdatedAt = kst.String()
+	content.CreatedAt = kst.String()
 
-	var new_content models.Content
-	db.Where("content_id = ?", id).First(&new_content)
-	err := db.Model(&new_content).Updates(content).Error
+	content.Title = contentData.Title
+	content.Summary = contentData.Summary
+	content.Content = contentData.Content
+	err = db.Create(&content).Error
+	return content, err
+}
 
-	return new_content, err
+func (db *DBORM) UpdateContent(
+	id int, contentData models.ContentData) (
+	models.Content, error) {
+
+	contentData.ID = id
+
+	loc, _ := time.LoadLocation("Asia/Seoul")
+	kst := time.Now().In(loc)
+	contentData.UpdatedAt = kst.String()
+	err := db.Model(&contentData).Updates(contentData).Error
+
+	var content models.Content
+	db.Where("content_id = ?", id).First(&content)
+	return content, err
 }
 
 func (db *DBORM) DeleteContent(id int) (models.Content, error) {
