@@ -1,6 +1,6 @@
 # CRUD api on Go
 
-https://velog.io/@curiosity806/Go-Gin-Web-Framework-CRUD-%EB%A7%9B%EB%B3%B4%EA%B8%B0
+<a href = "https://velog.io/@curiosity806/Go-Gin-Web-Framework-CRUD-%EB%A7%9B%EB%B3%B4%EA%B8%B0">[Go] Gin Web Framework CRUD 맛보기</a>
 
 ## Development
 
