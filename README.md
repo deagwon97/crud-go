@@ -21,7 +21,9 @@ $ docker-compose up
 ## Build deployment image
 
 ```
-$ docker build .
+$ docker build -t go-api:latest .
+
+$ docker run -p 8000:8000 --env-file .env go-api:latest
 ```
 
 ## Reference
