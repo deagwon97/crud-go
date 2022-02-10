@@ -1,5 +1,7 @@
 # CRUD api on Go
 
+https://velog.io/@curiosity806/Go-Gin-Web-Framework-CRUD-%EB%A7%9B%EB%B3%B4%EA%B8%B0
+
 ## Development
 
 ### 1. docker-compose up
@@ -29,5 +31,3 @@ $ docker run -p 8000:8000 --env-file .env go-api:latest
 ## Reference
   - Hands-On Full-Stack Development with Go
   - https://github.com/gin-gonic/gin
-
-
