@@ -110,7 +110,7 @@ func (h *Handler) AddContent(c *gin.Context) {
 // @Param id path int true  "Content id"
 // @Param data body models.ContentData true  "Content Data"
 // @Success 200 {object} models.Content
-// @Router /content [patch]
+// @Router /content/{id} [patch]
 func (h *Handler) UpdateContent(c *gin.Context) {
 
 	p := c.Param("id")
@@ -139,7 +139,7 @@ func (h *Handler) UpdateContent(c *gin.Context) {
 // @Produce json
 // @Param id path int true  "Content id"
 // @Success 200 {object} models.Content
-// @Router /content [delete]
+// @Router /content/{id} [delete]
 func (h *Handler) DeleteContent(c *gin.Context) {
 
 	p := c.Param("id")
