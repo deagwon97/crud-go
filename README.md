@@ -1,5 +1,9 @@
 # CRUD api on Go
 
+Go, gin, gorm 을 활용하여 만든 CRUD API입니다.
+
+Pagination이 적용된 item list 조회 API가 포함되어 있습니다.
+
 <a href = "https://velog.io/@curiosity806/Go-Gin-Web-Framework-CRUD-%EB%A7%9B%EB%B3%B4%EA%B8%B0">[Go] Gin Web Framework CRUD 맛보기</a>
 
 ## Development
